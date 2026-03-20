@@ -1,112 +1,207 @@
+import { useState } from "react";
+
 const SECTIONS = [
   {
-    title: '1. Pendahuluan',
-    content: `Selamat datang di platform Buser Rental Nasional (BRN). Syarat dan Ketentuan ini mengatur akses dan penggunaan Anda terhadap situs web, aplikasi, dan layanan yang disediakan oleh BRN.
+    id: "pendahuluan",
+    title: "1. Pendahuluan",
+    content: `Selamat datang di Buser Rentcar Nasional (BRN). Dokumen ini mengatur syarat dan ketentuan penggunaan platform dan layanan kami. Dengan mengakses, menggunakan layanan, atau mendaftar sebagai Partner BRN, Anda menyatakan setuju untuk terikat secara hukum oleh seluruh Syarat dan Ketentuan yang tercantum di halaman ini.
 
-Dengan mendaftar, mengakses, atau menggunakan layanan kami, Anda menyatakan bahwa Anda telah membaca, memahami, dan menyetujui untuk terikat oleh Syarat dan Ketentuan ini serta Kebijakan Privasi kami. Jika Anda tidak menyetujui salah satu bagian dari ketentuan ini, Anda tidak diperkenankan untuk menggunakan layanan kami.`,
+Jika Anda tidak menyetujui salah satu, sebagian, atau seluruh isi Syarat & Ketentuan ini, maka Anda tidak diperkenankan untuk menggunakan layanan yang kami sediakan.`,
   },
   {
-    title: '2. Definisi',
+    id: "definisi",
+    title: "2. Definisi",
+    content:
+      "Dalam Syarat dan Ketentuan ini, kecuali konteksnya menentukan lain, istilah-istilah di bawah ini memiliki makna sebagai berikut:",
     list: [
-      'BRN adalah Buser Rental Nasional, sebuah komunitas dan platform bagi pengusaha rental mobil di Indonesia.',
-      'Platform merujuk pada situs web, aplikasi mobile, dan sistem terkait yang dikelola oleh BRN.',
-      'Partner/Anggota adalah pengusaha rental mobil yang telah mendaftar, diverifikasi, dan diterima sebagai bagian dari komunitas BRN.',
-      'Layanan adalah semua fitur, informasi, dan fasilitas yang disediakan melalui Platform BRN, termasuk namun tidak terbatas pada Peta Partner dan sistem informasi keamanan.',
+      "BRN adalah organisasi dan platform Buser Rentcar Nasional.",
+      "Platform merujuk pada website, aplikasi mobile, dan sistem terkait yang dikelola oleh BRN.",
+      "Partner adalah pengusaha rental mobil yang telah mendaftar, terverifikasi, dan aktif di dalam sistem BRN.",
+      "Pengguna adalah setiap orang yang mengakses platform BRN, baik yang terdaftar maupun tidak terdaftar.",
     ],
   },
   {
-    title: '3. Pendaftaran dan Akun Partner',
-    content: 'Untuk menjadi Partner BRN dan ditampilkan dalam Peta Partner, Anda harus memenuhi persyaratan berikut:',
+    id: "pendaftaran",
+    title: "3. Pendaftaran & Keanggotaan",
+    content:
+      "Untuk menjadi Partner BRN, Anda diwajibkan untuk mengisi formulir pendaftaran dengan data yang valid, akurat, dan dapat dipertanggungjawabkan. Ketentuan pendaftaran meliputi:",
     list: [
-      'Memiliki usaha rental mobil yang sah dan beroperasi di wilayah Indonesia.',
-      'Mengisi formulir pendaftaran dengan informasi yang akurat, lengkap, dan terkini.',
-      'Menyelesaikan proses verifikasi yang mungkin melibatkan pengecekan dokumen usaha.',
-      'Membayar biaya pendaftaran atau iuran keanggotaan (jika ada) melalui metode pembayaran resmi yang disediakan, yaitu Xendit.',
-    ],
-    footer: 'Anda bertanggung jawab penuh atas kerahasiaan kata sandi akun Anda dan semua aktivitas yang terjadi di bawah akun Anda.',
-  },
-  {
-    title: '4. Kewajiban Partner',
-    content: 'Sebagai Partner BRN, Anda diwajibkan untuk:',
-    list: [
-      'Menjaga standar pelayanan yang baik dan profesional kepada pelanggan.',
-      'Turut serta aktif dalam menjaga keamanan dan solidaritas sesama anggota BRN.',
-      'Tidak menyalahgunakan informasi yang diperoleh dari Platform BRN untuk kepentingan pribadi yang merugikan pihak lain.',
-      'Memperbarui informasi usaha Anda di Platform jika terdapat perubahan alamat, kontak, atau armada.',
+      "Calon partner wajib melampirkan identitas diri yang sah (KTP) dan memiliki legalitas atau bukti usaha rental kendaraan yang beroperasi di wilayah hukum Indonesia.",
+      "Form pendaftaran wajib diisi oleh pihak yang dapat didefinisikan untuk bertindak atas partner.",
+      "BRN berhak melakukan verifikasi lanjutan terhadap lokasi usaha dan dokumen yang dilampirkan.",
+      "BRN berhak menerima atau menolak permohonan pendaftaran tanpa kewajiban memberikan alasan secara spesifik apabila ditemukan indikasi pelanggaran atau data yang tidak valid.",
     ],
   },
   {
-    title: '5. Pembayaran',
-    content: 'Beberapa layanan di BRN, termasuk pendaftaran awal sebagai Partner, mungkin memerlukan biaya. Ketentuan pembayaran adalah sebagai berikut:',
+    id: "hak-kewajiban",
+    title: "4. Hak & Kewajiban Partner",
+    content:
+      "Setelah resmi menjadi Partner BRN, Anda memiliki hak dan kewajiban yang harus ditaati demi menjaga kualitas layanan bersama.",
+    highlight: {
+      title: "Kewajiban Utama:",
+      list: [
+        "Menjaga nama baik organisasi BRN di setiap kegiatan operasional penyewaan kendaraan.",
+        "Mematuhi aturan dan pedoman keamanan yang berlaku, dan turut serta dalam solidaritas yang ada.",
+        "Memberikan pelayanan terbaik, profesional, dan ramah kepada konsumen/penyewa.",
+        "Tidak melakukan tindakan penipuan, manipulasi harga, atau kegiatan melanggar hukum lainnya.",
+      ],
+    },
+  },
+  {
+    id: "biaya",
+    title: "5. Biaya & Pembayaran",
+    content:
+      "Keanggotaan Partner BRN tidak dikenakan biaya iuran perpanjangan tahunan. Adapun kebijakan mengenai pembayaran pendaftaran adalah:",
     list: [
-      'Semua transaksi pembayaran dilakukan melalui payment gateway resmi kami, Xendit.',
-      'Tagihan akan diterbitkan setelah Anda melengkapi data pendaftaran.',
-      'Status Partner Anda akan aktif dan ditampilkan di Peta Partner setelah sistem kami memverifikasi bahwa pembayaran telah berhasil diterima.',
-      'Biaya yang telah dibayarkan tidak dapat dikembalikan (non-refundable) kecuali ditentukan lain oleh kebijakan khusus BRN.',
+      "Biaya langganan dan biaya verifikasi pendaftaran dapat dikembalikan (non-refundable) dengan alasan khusus dan melalui persetujuan admin berbasis dikemukakan.",
+      "Pembayaran wajib diselesaikan secara online melalui payment gateway resmi yang telah bermitra dengan BRN (misalnya: Xendit).",
+      "Partner wajib memastikan tagihan dibayar lunas sebelum masuk ke dalam daftar tayang terdaftar di sistem Peta Partner BRN.",
     ],
   },
   {
-    title: '6. Batasan Tanggung Jawab',
-    content: 'BRN bertindak sebagai penyedia platform dan komunitas. Kami tidak bertanggung jawab atas:',
-    list: [
-      'Kerugian finansial, kerusakan armada, atau masalah hukum yang timbul antara Partner dengan pelanggan mereka.',
-      'Ketidakakuratan data yang diberikan oleh Partner lain di dalam sistem.',
-      'Gangguan teknis sementara pada Platform yang berada di luar kendali wajar kami.',
-    ],
+    id: "privasi",
+    title: "6. Privasi & Keamanan Data",
+    content: `Kami sangat menghargai privasi Anda. Data pribadi yang dikumpulkan selama proses pendaftaran akan disimpan dengan aman dan hanya digunakan untuk kepentingan operasional BRN, verifikasi partner, dan kepatuhan hukum. BRN tidak akan menjual atau membagikan data Anda kepada pihak ketiga di luar keperluan operasional platform tanpa persetujuan tertulis dari Anda.`,
   },
-  {
-    title: '7. Perubahan Syarat dan Ketentuan',
-    content: `BRN berhak untuk mengubah, memodifikasi, menambah, atau menghapus bagian dari Syarat dan Ketentuan ini kapan saja. Perubahan akan berlaku segera setelah dipublikasikan di Platform. Penggunaan Anda atas Layanan setelah adanya perubahan merupakan penerimaan Anda terhadap Syarat dan Ketentuan yang direvisi.`,
-  },
-  {
-    title: '8. Hubungi Kami',
-    content: `Jika Anda memiliki pertanyaan tentang Syarat dan Ketentuan ini, silakan hubungi kami di:
-
-Email: legal@buserrentalnasional.id
-Telepon: +62 811-XXXX-XXXX`,
-  },
-]
+];
 
 export default function TermsPage() {
+  const [activeSection, setActiveSection] = useState("pendahuluan");
+
+  // Fungsi untuk scroll halus ke section saat link daftar isi diklik
+  const scrollToSection = (id: string) => {
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) {
+      // Offset untuk header yang sticky jika ada
+      const yOffset = -100;
+      const y =
+        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
-          <h1
-            className="text-4xl font-black text-[#1A2332] mb-3"
-            style={{ fontFamily: 'Syne, sans-serif' }}
-          >
+    <div className="bg-white min-h-screen">
+      {/* === HEADER SECTION === */}
+      <section className="bg-[#0F172A] pt-24 pb-24 text-center px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto flex flex-col items-center">
+          {/* Garis Kuning */}
+          <div className="w-12 h-1 bg-[#F5C800] mb-8"></div>
+
+          <h1 className="text-4xl md:text-[2.5rem] font-bold text-white mb-6 tracking-tight">
             Syarat & Ketentuan
           </h1>
-          <p className="text-sm text-gray-400">Terakhir diperbarui: 24 Oktober 2025</p>
-        </div>
 
-        <div className="space-y-10">
-          {SECTIONS.map((section, i) => (
-            <div key={i}>
-              <h2 className="font-bold text-[#1A2332] text-lg mb-3">{section.title}</h2>
-              {section.content && (
-                <p className="text-sm text-gray-600 leading-relaxed mb-3 whitespace-pre-line">
-                  {section.content}
-                </p>
-              )}
-              {section.list && (
-                <ol className="space-y-2">
-                  {section.list.map((item, j) => (
-                    <li key={j} className="flex gap-2 text-sm text-gray-600">
-                      <span className="font-semibold text-[#1A2332] flex-shrink-0">{j + 1}.</span>
-                      <span className="leading-relaxed">{item}</span>
-                    </li>
-                  ))}
-                </ol>
-              )}
-              {section.footer && (
-                <p className="text-sm text-gray-600 leading-relaxed mt-3">{section.footer}</p>
-              )}
-            </div>
-          ))}
+          <p className="text-gray-400 text-[15px] leading-relaxed max-w-xl">
+            Pembaruan terakhir: 24 Oktober 2025. Silakan baca Syarat dan
+            Ketentuan ini dengan saksama sebelum menggunakan layanan Buser
+            Rentcar Nasional (BRN).
+          </p>
         </div>
-      </div>
-    </section>
-  )
+      </section>
+
+      {/* === CONTENT SECTION (SPLIT LAYOUT) === */}
+      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+          {/* SIDEBAR - DAFTAR ISI (Sticky) */}
+          <aside className="w-full lg:w-[280px] shrink-0 lg:sticky lg:top-28">
+            <div className="mb-10">
+              <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4 px-4">
+                Daftar Isi
+              </h3>
+              <nav className="flex flex-col">
+                {SECTIONS.map((sec) => (
+                  <button
+                    key={sec.id}
+                    onClick={() => scrollToSection(sec.id)}
+                    className={`text-left px-4 py-3 text-[13px] font-semibold transition-all border-l-2 ${
+                      activeSection === sec.id
+                        ? "border-[#F5C800] bg-yellow-50/50 text-[#0F172A]"
+                        : "border-transparent text-gray-500 hover:text-[#0F172A] hover:bg-gray-50"
+                    }`}
+                  >
+                    {sec.title}
+                  </button>
+                ))}
+              </nav>
+            </div>
+
+            {/* Bantuan Box */}
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h4 className="font-bold text-[#0F172A] text-sm mb-2">
+                Butuh Bantuan?
+              </h4>
+              <p className="text-gray-500 text-[12px] leading-relaxed mb-5">
+                Jika Anda memiliki pertanyaan terkait syarat dan ketentuan kami,
+                silakan hubungi tim support.
+              </p>
+              <button className="w-full bg-white border border-gray-200 text-[#0F172A] text-[13px] font-bold py-2.5 rounded-xl hover:bg-gray-100 transition-colors shadow-sm">
+                Hubungi Kami
+              </button>
+            </div>
+          </aside>
+
+          {/* MAIN CONTENT - PENJELASAN PASAL */}
+          <main className="flex-1 max-w-3xl">
+            <div className="space-y-14">
+              {SECTIONS.map((section) => (
+                <div key={section.id} id={section.id} className="scroll-mt-28">
+                  <h2 className="text-2xl font-bold text-[#0F172A] mb-5">
+                    {section.title}
+                  </h2>
+
+                  {/* Teks Paragraf */}
+                  {section.content && (
+                    <p className="text-[15px] text-gray-600 leading-[1.8] whitespace-pre-line mb-4">
+                      {section.content}
+                    </p>
+                  )}
+
+                  {/* List Standard (Bullet Hitam) */}
+                  {section.list && (
+                    <ul className="space-y-3 mt-4">
+                      {section.list.map((item, j) => (
+                        <li
+                          key={j}
+                          className="flex gap-3 text-[15px] text-gray-600 leading-[1.7]"
+                        >
+                          <span className="text-gray-800 mt-2.5 text-[6px]">
+                            ●
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Highlight Box (Untuk Kewajiban Utama) */}
+                  {section.highlight && (
+                    <div className="mt-6 bg-[#F8FAFC] rounded-2xl p-6 md:p-8 border-l-4 border-[#F5C800]">
+                      <h4 className="font-bold text-[#0F172A] text-[15px] mb-4">
+                        {section.highlight.title}
+                      </h4>
+                      <ul className="space-y-3">
+                        {section.highlight.list.map((item, j) => (
+                          <li
+                            key={j}
+                            className="flex gap-3 text-[14px] text-gray-600 leading-[1.7]"
+                          >
+                            <span className="text-gray-400 mt-2.5 text-[6px]">
+                              ●
+                            </span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </main>
+        </div>
+      </section>
+    </div>
+  );
 }

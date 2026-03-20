@@ -10,20 +10,16 @@ export function Navbar() {
   const location = useLocation();
 
   return (
-    // Background diubah menjadi putih kebiruan pucat sesuai gambar
     <header className="sticky top-0 z-50 bg-[#F8FAFC] border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo Section - Mengikuti visual gambar */}
-          <Link to="/" className="flex items-center gap-3">
-            {/* <img
-              src="/logo-brn-bulat.png" // Sesuaikan path logo bulat kuning Anda
-              alt="BRN Logo"
-              className="w-10 h-10 object-contain"
-            /> */}
+      {/* Container disamakan dengan Hero (max-w-6xl) agar sejajar rapi */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        {/* Tinggi navbar dikurangi menjadi h-[72px] */}
+        <div className="flex items-center justify-between h-[72px]">
+          {/* Logo Section */}
+          <Link to="/" className="flex items-center gap-2">
             <div className="flex flex-col leading-none">
               <span
-                className="text-2xl font-bold tracking-tighter text-gray-900"
+                className="text-2xl font-bold tracking-tight text-gray-900"
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
                 BRN<span className="text-gray-400 font-light">+</span>
@@ -31,17 +27,17 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Nav - Teks lebih gelap dan spacing lebih lebar */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav - Ukuran font diperkecil dan dirapikan */}
+          <nav className="hidden md:flex items-center gap-7">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
                 className={cn(
-                  "text-[15px] font-medium transition-colors",
+                  "text-[13px] font-semibold transition-colors",
                   location.pathname === link.href
-                    ? "text-gray-900 font-bold" // Active state
-                    : "text-gray-600 hover:text-gray-900",
+                    ? "text-gray-900" // Active state
+                    : "text-gray-500 hover:text-gray-900",
                 )}
               >
                 {link.label}
@@ -49,10 +45,10 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* Button - Navy Gelap sesuai gambar */}
+          {/* Button - Padding dikurangi drastis agar lebih compact */}
           <div className="hidden md:block">
             <Link to="/daftar">
-              <Button className="bg-[#0F1E35] hover:bg-[#1a2e4d] text-white px-8 py-6 rounded-full text-sm font-bold transition-all">
+              <Button className="bg-[#0F172A] hover:bg-[#1e293b] text-white px-6 py-2.5 rounded-full text-[13px] font-semibold transition-all shadow-sm">
                 Daftar Partner
               </Button>
             </Link>
@@ -63,20 +59,20 @@ export function Navbar() {
             className="md:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-900"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden border-t border-gray-100 py-6 flex flex-col gap-4 bg-white px-4 shadow-xl">
+          <div className="md:hidden border-t border-gray-100 py-4 flex flex-col gap-3 bg-white px-4 shadow-xl">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
                 onClick={() => setIsOpen(false)}
                 className={cn(
-                  "text-base font-medium px-2 py-2 rounded-md",
+                  "text-sm font-medium px-3 py-2 rounded-md",
                   location.pathname === link.href
                     ? "bg-gray-50 text-gray-900 font-bold"
                     : "text-gray-600",
@@ -90,7 +86,7 @@ export function Navbar() {
               onClick={() => setIsOpen(false)}
               className="mt-2"
             >
-              <Button className="w-full bg-[#0F1E35] rounded-full py-6">
+              <Button className="w-full bg-[#0F172A] rounded-full py-3 text-sm">
                 Daftar Partner
               </Button>
             </Link>
