@@ -1,4 +1,6 @@
 import { FEATURES } from "@/data";
+import { Container } from "@/components/ui/Container";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { MapPin, ShieldCheck, Users } from "lucide-react";
 
 const FEATURE_ICONS: Record<number, React.ReactNode> = {
@@ -16,23 +18,17 @@ const FEATURE_BADGES: Record<number, string> = {
 export function FeaturesSection() {
   return (
     <section className="py-16 md:py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5C800]/15 text-[#1A2332] text-xs font-semibold mb-4">
-            Benefit utama BRN
-          </span>
-          <h2
-            className="text-3xl md:text-4xl font-black text-[#1A2332] mb-3"
-            style={{ fontFamily: "Syne, sans-serif" }}
-          >
-            Mengapa bergabung dengan BRN?
-          </h2>
-          <p className="text-gray-500 text-sm max-w-md mx-auto leading-relaxed">
-            Struktur komunitas yang kuat, berdah dan mudah diakses, sehingga
-            value utama komunitas langsung terlihat jelas.
-          </p>
-        </div>
+      <Container>
+        <SectionHeader
+          label="Benefit utama BRN"
+          labelClassName="bg-[#F5C800]/15 text-[#1A2332]"
+          title="Mengapa bergabung dengan BRN?"
+          titleClassName="text-3xl md:text-4xl font-black text-[#1A2332] mb-3"
+          titleStyle={{ fontFamily: "Syne, sans-serif" }}
+          description="Struktur komunitas yang kuat, berdah dan mudah diakses, sehingga value utama komunitas langsung terlihat jelas."
+          descriptionClassName="text-sm max-w-md mx-auto"
+          className="mb-12"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {FEATURES.map((feature, i) => (
@@ -58,7 +54,7 @@ export function FeaturesSection() {
             </div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

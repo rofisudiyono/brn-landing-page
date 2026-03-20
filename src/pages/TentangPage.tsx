@@ -1,4 +1,7 @@
 import { ShieldCheck } from "lucide-react";
+import { Container } from "@/components/ui/Container";
+import { StatCard } from "@/components/ui/StatCard";
+import { HERO_STATS } from "@/data";
 
 // Mock Data untuk Pengurus
 const TEAM_MEMBERS = [
@@ -41,8 +44,7 @@ export default function TentangPage() {
     <div className="bg-white min-h-screen">
       {/* === HERO SECTION === */}
       <section className="pt-10 pb-16">
-        {/* Container disamakan max-w-6xl */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <Container>
           <div className="bg-[#0F172A] rounded-[32px] overflow-hidden p-8 md:p-12 lg:p-16 relative">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
               {/* Left Content */}
@@ -97,13 +99,12 @@ export default function TentangPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* === STORY & STATS SECTION === */}
       <section className="py-16 bg-white">
-        {/* Container disamakan max-w-6xl */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <Container>
           <div className="max-w-4xl mx-auto text-center mb-16">
             <span className="inline-block px-4 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-gray-600 text-[12px] font-semibold mb-6">
               Tentang Kami
@@ -129,46 +130,18 @@ export default function TentangPage() {
             </div>
           </div>
 
-          {/* Stats - Grid akan melebar penuh mengikuti max-w-6xl */}
+          {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border border-gray-100 rounded-2xl p-8 bg-white shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] text-center md:text-left">
-              <h3 className="text-4xl font-bold text-gray-900 mb-2">120+</h3>
-              <p className="font-bold text-sm text-gray-900 mb-2">
-                Jumlah pengurus
-              </p>
-              <p className="text-[12px] text-gray-500">
-                Tersebar aktif membantu koordinasi, verifikasi, dan perluasan
-                jaringan anggota.
-              </p>
-            </div>
-            <div className="border border-gray-100 rounded-2xl p-8 bg-white shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] text-center md:text-left">
-              <h3 className="text-4xl font-bold text-gray-900 mb-2">2.500+</h3>
-              <p className="font-bold text-sm text-gray-900 mb-2">
-                Jumlah anggota
-              </p>
-              <p className="text-[12px] text-gray-500">
-                Komunitas rental mobil yang terus tumbuh dengan koneksi lintas
-                kota provinsi.
-              </p>
-            </div>
-            <div className="border border-gray-100 rounded-2xl p-8 bg-white shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] text-center md:text-left">
-              <h3 className="text-4xl font-bold text-gray-900 mb-2">38</h3>
-              <p className="font-bold text-sm text-gray-900 mb-2">
-                Jumlah korda
-              </p>
-              <p className="text-[12px] text-gray-500">
-                Koordinator daerah yang memperkuat sinergi komunitas di wilayah
-                masing-masing.
-              </p>
-            </div>
+            {HERO_STATS.map((stat) => (
+              <StatCard key={stat.label} {...stat} />
+            ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* === VISI & MISI SECTION === */}
       <section className="py-20 bg-[#F8FAFC]">
-        {/* Container disamakan max-w-6xl */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <Container>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Visi & Misi
@@ -238,13 +211,12 @@ export default function TentangPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* === TEAM SECTION === */}
       <section className="py-20 bg-white">
-        {/* Container disamakan max-w-6xl */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <Container>
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Pengurus Organisasi Aktif
@@ -279,7 +251,7 @@ export default function TentangPage() {
               </div>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
     </div>
   );

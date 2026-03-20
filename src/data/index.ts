@@ -1,3 +1,80 @@
+export const HERO_STATS = [
+  {
+    value: "120+",
+    label: "Jumlah pengurus",
+    sub: "Tersebar aktif membantu koordinasi, verifikasi, dan perluasan jaringan anggota.",
+  },
+  {
+    value: "2.500+",
+    label: "Jumlah anggota",
+    sub: "Komunitas rental mobil yang terus tumbuh dengan koneksi lintas kota dan provinsi.",
+  },
+  {
+    value: "38",
+    label: "Jumlah korda",
+    sub: "Koordinator daerah yang memperkuat sinergi komunitas di wilayah masing-masing.",
+  },
+];
+
+export const SAMPLE_PARTNERS = [
+  {
+    id: 1,
+    name: "Bintang Rentcar",
+    city: "Jakarta",
+    desc: "Partner aktif untuk sewa harian, bulanan, dan kebutuhan korporasi dengan pelayanan profesional.",
+    logo: "https://ui-avatars.com/api/?name=BR&background=0F172A&color=fff&rounded=true&bold=true",
+  },
+  {
+    id: 2,
+    name: "Jatim Premium Car",
+    city: "Surabaya",
+    desc: "Melayani armada keluarga dan bisnis dengan jaringan operasional yang rapi dan terpercaya.",
+    logo: "https://ui-avatars.com/api/?name=JP&background=1E3A8A&color=fff&rounded=true&bold=true",
+  },
+  {
+    id: 3,
+    name: "Bali Trans Rental",
+    city: "Denpasar",
+    desc: "Partner wisata dan perjalanan bisnis dengan dukungan tim lokal yang responsif dan aman.",
+    logo: "https://ui-avatars.com/api/?name=BT&background=047857&color=fff&rounded=true&bold=true",
+  },
+  {
+    id: 4,
+    name: "Java Mobility",
+    city: "Semarang",
+    desc: "Solusi rental lintas kota dengan pendekatan profesional untuk pelanggan pribadi dan perusahaan.",
+    logo: "https://ui-avatars.com/api/?name=JM&background=475569&color=fff&rounded=true&bold=true",
+  },
+  {
+    id: 5,
+    name: "Andalan Auto",
+    city: "Bandung",
+    desc: "Menyediakan berbagai jenis mobil MPV dan SUV untuk kebutuhan keluarga dan wisata di Jawa Barat.",
+    logo: "https://ui-avatars.com/api/?name=AA&background=D97706&color=fff&rounded=true&bold=true",
+  },
+  {
+    id: 6,
+    name: "Khatulistiwa Rent",
+    city: "Pontianak",
+    desc: "Layanan sewa kendaraan handal dengan armada terawat untuk eksplorasi area Kalimantan.",
+    logo: "https://ui-avatars.com/api/?name=KR&background=2563EB&color=fff&rounded=true&bold=true",
+  },
+  {
+    id: 7,
+    name: "Celebes Trans",
+    city: "Makassar",
+    desc: "Jaringan rental mobil terkemuka di Sulawesi Selatan yang mengutamakan kenyamanan dan keamanan pelanggan.",
+    logo: "https://ui-avatars.com/api/?name=CT&background=DC2626&color=fff&rounded=true&bold=true",
+  },
+  {
+    id: 8,
+    name: "Sumatera Drive",
+    city: "Medan",
+    desc: "Pilihan utama untuk perjalanan lintas Sumatera dengan driver berpengalaman maupun lepas kunci.",
+    logo: "https://ui-avatars.com/api/?name=SD&background=7C3AED&color=fff&rounded=true&bold=true",
+  },
+];
+
 export const NAV_LINKS = [
   { label: "Beranda", href: "/" },
   { label: "Tentang Kami", href: "/tentang" },

@@ -1,90 +1,13 @@
-import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { MapPin } from "lucide-react"; // Tambahkan import ini
-
-// 8 Sample Data Partner (Sama seperti sebelumnya)
-const SAMPLE_PARTNERS = [
-  {
-    id: 1,
-    name: "Bintang Rentcar",
-    city: "Jakarta",
-    desc: "Partner aktif untuk sewa harian, bulanan, dan kebutuhan korporasi dengan pelayanan profesional.",
-    logo: "https://ui-avatars.com/api/?name=BR&background=0F172A&color=fff&rounded=true&bold=true",
-  },
-  {
-    id: 2,
-    name: "Jatim Premium Car",
-    city: "Surabaya",
-    desc: "Melayani armada keluarga dan bisnis dengan jaringan operasional yang rapi dan terpercaya.",
-    logo: "https://ui-avatars.com/api/?name=JP&background=1E3A8A&color=fff&rounded=true&bold=true",
-  },
-  {
-    id: 3,
-    name: "Bali Trans Rental",
-    city: "Denpasar",
-    desc: "Partner wisata dan perjalanan bisnis dengan dukungan tim lokal yang responsif dan aman.",
-    logo: "https://ui-avatars.com/api/?name=BT&background=047857&color=fff&rounded=true&bold=true",
-  },
-  {
-    id: 4,
-    name: "Java Mobility",
-    city: "Semarang",
-    desc: "Solusi rental lintas kota dengan pendekatan profesional untuk pelanggan pribadi dan perusahaan.",
-    logo: "https://ui-avatars.com/api/?name=JM&background=475569&color=fff&rounded=true&bold=true",
-  },
-  {
-    id: 5,
-    name: "Andalan Auto",
-    city: "Bandung",
-    desc: "Menyediakan berbagai jenis mobil MPV dan SUV untuk kebutuhan keluarga dan wisata di Jawa Barat.",
-    logo: "https://ui-avatars.com/api/?name=AA&background=D97706&color=fff&rounded=true&bold=true",
-  },
-  {
-    id: 6,
-    name: "Khatulistiwa Rent",
-    city: "Pontianak",
-    desc: "Layanan sewa kendaraan handal dengan armada terawat untuk eksplorasi area Kalimantan.",
-    logo: "https://ui-avatars.com/api/?name=KR&background=2563EB&color=fff&rounded=true&bold=true",
-  },
-  {
-    id: 7,
-    name: "Celebes Trans",
-    city: "Makassar",
-    desc: "Jaringan rental mobil terkemuka di Sulawesi Selatan yang mengutamakan kenyamanan dan keamanan pelanggan.",
-    logo: "https://ui-avatars.com/api/?name=CT&background=DC2626&color=fff&rounded=true&bold=true",
-  },
-  {
-    id: 8,
-    name: "Sumatera Drive",
-    city: "Medan",
-    desc: "Pilihan utama untuk perjalanan lintas Sumatera dengan driver berpengalaman maupun lepas kunci.",
-    logo: "https://ui-avatars.com/api/?name=SD&background=7C3AED&color=fff&rounded=true&bold=true",
-  },
-];
+import { MapPin } from "lucide-react";
+import { SAMPLE_PARTNERS } from "@/data";
+import { Container } from "@/components/ui/Container";
+import { AutoScrollCarousel } from "@/components/ui/AutoScrollCarousel";
 
 export function PartnersPreviewSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (scrollRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-        const isEnd = scrollLeft + clientWidth >= scrollWidth - 10;
-
-        if (isEnd) {
-          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          scrollRef.current.scrollBy({ left: 320, behavior: "smooth" });
-        }
-      }
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section className="py-16 md:py-24 bg-white overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="max-w-2xl">
             <span className="inline-block px-4 py-1.5 rounded-full bg-[#0F172A] text-white text-[13px] font-semibold mb-6">
@@ -98,7 +21,6 @@ export function PartnersPreviewSection() {
               jaringan usaha rental mobil yang sudah terhubung bersama BRN.
             </p>
           </div>
-
           <Link to="/peta-partner" className="shrink-0">
             <button className="w-full md:w-auto px-6 py-3 rounded-xl border border-gray-200 text-gray-900 font-semibold text-sm hover:bg-gray-50 transition-colors shadow-sm">
               Lihat Peta Partner
@@ -106,10 +28,7 @@ export function PartnersPreviewSection() {
           </Link>
         </div>
 
-        <div
-          ref={scrollRef}
-          className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-        >
+        <AutoScrollCarousel className="gap-5 pb-4">
           {SAMPLE_PARTNERS.map((partner) => (
             <div
               key={partner.id}
@@ -145,8 +64,8 @@ export function PartnersPreviewSection() {
               </p>
             </div>
           ))}
-        </div>
-      </div>
+        </AutoScrollCarousel>
+      </Container>
     </section>
   );
 }

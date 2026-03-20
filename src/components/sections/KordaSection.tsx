@@ -1,50 +1,24 @@
-import { useEffect, useRef } from "react";
-import { Users, Map } from "lucide-react"; // Map icon untuk menggantikan B logo
+import { Users, Map } from "lucide-react";
 import { KORDA_DATA } from "@/data";
+import { Container } from "@/components/ui/Container";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { AutoScrollCarousel } from "@/components/ui/AutoScrollCarousel";
 
 export function KordaSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  // Auto-scroll logic (Berjalan setiap 2 detik)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (scrollRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-        const isEnd = scrollLeft + clientWidth >= scrollWidth - 10;
-
-        if (isEnd) {
-          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          scrollRef.current.scrollBy({ left: 320, behavior: "smooth" });
-        }
-      }
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section className="py-16 md:py-24 bg-white overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Header - Sesuai gambar rata tengah */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#F8FAFC] text-[#1e293b] text-[13px] font-semibold mb-5 shadow-sm border border-gray-100">
-            Jaringan korda
-          </span>
-          <h2 className="text-3xl md:text-[2.75rem] font-bold text-[#0F172A] leading-tight mb-5 tracking-tight">
-            Korda BRN di berbagai wilayah
-          </h2>
-          <p className="text-gray-600 text-[15px] leading-relaxed max-w-2xl">
-            Tampilan korda dibuat lebih rapi, ringkas, dan mudah dipindai untuk
-            menonjolkan identitas wilayah serta jumlah pengurus.
-          </p>
-        </div>
+      <Container>
+        <SectionHeader
+          label="Jaringan korda"
+          labelClassName="bg-[#F8FAFC] border border-gray-100 text-[#1e293b] shadow-sm px-4 py-1.5 text-[13px] mb-5"
+          title="Korda BRN di berbagai wilayah"
+          titleClassName="text-3xl md:text-[2.75rem] text-[#0F172A] leading-tight mb-5"
+          description="Tampilan korda dibuat lebih rapi, ringkas, dan mudah dipindai untuk menonjolkan identitas wilayah serta jumlah pengurus."
+          descriptionClassName="text-[15px] max-w-2xl"
+          className="mb-16"
+        />
 
-        {/* Carousel Slider */}
-        <div
-          ref={scrollRef}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-8 pt-2 px-2 -mx-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-        >
+        <AutoScrollCarousel className="gap-6 pb-8 pt-2 px-2 -mx-2">
           {KORDA_DATA.map((korda) => (
             <div
               key={korda.id}
@@ -108,8 +82,8 @@ export function KordaSection() {
               </div>
             </div>
           ))}
-        </div>
-      </div>
+        </AutoScrollCarousel>
+      </Container>
     </section>
   );
 }

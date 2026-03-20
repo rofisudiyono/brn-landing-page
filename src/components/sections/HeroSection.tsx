@@ -1,30 +1,14 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
+import { StatCard } from "@/components/ui/StatCard";
 import { ShieldCheck } from "lucide-react";
-
-const HERO_STATS = [
-  {
-    value: "120+",
-    label: "Jumlah pengurus",
-    sub: "Tersebar aktif membantu koordinasi, verifikasi, dan perluasan jaringan anggota.",
-  },
-  {
-    value: "2.500+",
-    label: "Jumlah anggota",
-    sub: "Komunitas rental mobil yang terus tumbuh dengan koneksi lintas kota dan provinsi.",
-  },
-  {
-    value: "38",
-    label: "Jumlah korda",
-    sub: "Koordinator daerah yang memperkuat sinergi komunitas di wilayah masing-masing.",
-  },
-];
+import { HERO_STATS } from "@/data";
 
 export function HeroSection() {
   return (
     <section className="bg-[#F8FAFC] py-6 md:py-10">
-      {/* Container dikecilkan ke max-6xl agar tidak terlalu lebar di layar laptop */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Container>
         {/* Main Dark Card - Padding dikurangi dari p-16 ke p-10/12 */}
         <div className="bg-[#0F172A] rounded-[24px] overflow-hidden p-8 md:p-12 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
@@ -94,27 +78,14 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Stats Grid - Dibuat lebih slim */}
+          {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16">
             {HERO_STATS.map((stat) => (
-              <div
-                key={stat.label}
-                className="bg-white rounded-xl p-6 shadow-sm flex flex-col justify-center"
-              >
-                <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">
-                  {stat.value}
-                </p>
-                <p className="text-xs font-bold text-gray-900 mb-1">
-                  {stat.label}
-                </p>
-                <p className="text-gray-500 text-[10px] leading-normal">
-                  {stat.sub}
-                </p>
-              </div>
+              <StatCard key={stat.label} {...stat} variant="compact" />
             ))}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

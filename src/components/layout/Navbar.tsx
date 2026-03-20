@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
 import { NAV_LINKS } from "@/data";
 import { cn } from "@/lib/utils";
 
@@ -12,7 +13,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-[#F8FAFC] border-b border-gray-100">
       {/* Container disamakan dengan Hero (max-w-6xl) agar sejajar rapi */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Container>
         {/* Tinggi navbar dikurangi menjadi h-[72px] */}
         <div className="flex items-center justify-between h-[72px]">
           {/* Logo Section */}
@@ -92,7 +93,7 @@ export function Navbar() {
             </Link>
           </div>
         )}
-      </div>
+      </Container>
     </header>
   );
 }
