@@ -84,7 +84,7 @@ export function PartnersPreviewSection() {
 
   return (
     <section className="py-16 md:py-24 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="max-w-2xl">
             <span className="inline-block px-4 py-1.5 rounded-full bg-[#0F172A] text-white text-[13px] font-semibold mb-6">

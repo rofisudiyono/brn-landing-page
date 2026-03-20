@@ -41,7 +41,7 @@ export default function TentangPage() {
     <div className="bg-white min-h-screen">
       {/* === HERO SECTION === */}
       <section className="pt-10 pb-16">
-        {/* Container disamakan max-w-7xl */}
+        {/* Container disamakan max-w-6xl */}
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="bg-[#0F172A] rounded-[32px] overflow-hidden p-8 md:p-12 lg:p-16 relative">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
@@ -102,8 +102,8 @@ export default function TentangPage() {
 
       {/* === STORY & STATS SECTION === */}
       <section className="py-16 bg-white">
-        {/* Container disamakan max-w-7xl */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Container disamakan max-w-6xl */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <span className="inline-block px-4 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-gray-600 text-[12px] font-semibold mb-6">
               Tentang Kami
@@ -129,7 +129,7 @@ export default function TentangPage() {
             </div>
           </div>
 
-          {/* Stats - Grid akan melebar penuh mengikuti max-w-7xl */}
+          {/* Stats - Grid akan melebar penuh mengikuti max-w-6xl */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="border border-gray-100 rounded-2xl p-8 bg-white shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] text-center md:text-left">
               <h3 className="text-4xl font-bold text-gray-900 mb-2">120+</h3>
@@ -167,8 +167,8 @@ export default function TentangPage() {
 
       {/* === VISI & MISI SECTION === */}
       <section className="py-20 bg-[#F8FAFC]">
-        {/* Container disamakan max-w-7xl */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Container disamakan max-w-6xl */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Visi & Misi
@@ -243,8 +243,8 @@ export default function TentangPage() {
 
       {/* === TEAM SECTION === */}
       <section className="py-20 bg-white">
-        {/* Container disamakan max-w-7xl */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Container disamakan max-w-6xl */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Pengurus Organisasi Aktif

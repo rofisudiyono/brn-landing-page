@@ -25,7 +25,7 @@ export function KordaSection() {
 
   return (
     <section className="py-16 md:py-24 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header - Sesuai gambar rata tengah */}
         <div className="flex flex-col items-center text-center mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-[#F8FAFC] text-[#1e293b] text-[13px] font-semibold mb-5 shadow-sm border border-gray-100">

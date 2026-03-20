@@ -102,7 +102,7 @@ export default function TermsPage() {
       </section>
 
       {/* === CONTENT SECTION (SPLIT LAYOUT) === */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6">
+      <section className="py-16 max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
           {/* SIDEBAR - DAFTAR ISI (Sticky) */}
           <aside className="w-full lg:w-[280px] shrink-0 lg:sticky lg:top-28">

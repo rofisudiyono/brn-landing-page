@@ -36,7 +36,7 @@ export function AppSection() {
   return (
     <section className="bg-white py-16 md:py-24">
       {/* Container max-width disamakan dengan section lain */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Main Wrapper: Dibuat seperti card besar dengan sudut membulat */}
         <div className="flex flex-col lg:flex-row rounded-[32px] overflow-hidden border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
           {/* === LEFT SIDE: Dark Section === */}

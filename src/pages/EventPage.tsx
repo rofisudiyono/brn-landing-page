@@ -126,7 +126,7 @@ export default function EventPage() {
       </section>
 
       {/* === EVENT MENDATANG SECTION === */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6">
+      <section className="py-16 max-w-6xl mx-auto px-4 sm:px-6">
         <div className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Event Mendatang
@@ -258,7 +258,7 @@ export default function EventPage() {
 
       {/* === ACARA SEBELUMNYA SECTION === */}
       <section className="bg-[#F8FAFC] py-16 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
