@@ -10,14 +10,9 @@ import {
   useMap,
 } from "react-leaflet";
 import { Plus, Minus, Crosshair } from "lucide-react";
+import type { PartnerMapItem } from "@/types/partner";
 
-export type PartnerMapItem = {
-  id: number;
-  name: string;
-  kategori: string;
-  lat: number;
-  lng: number;
-};
+export type { PartnerMapItem };
 
 type PartnerMapProps = {
   partners: PartnerMapItem[];

@@ -1,40 +1,22 @@
 import { useState, type ChangeEvent } from "react";
 import { User, Store } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { INITIAL_PARTNER_REGISTRATION } from "@/constant/daftarForm";
 import { PRICING_PLANS, INDONESIAN_PROVINCES } from "@/data";
 import { cn } from "@/lib/utils";
-
-interface FormData {
-  namaLengkap: string;
-  whatsapp: string;
-  email: string;
-  namaUsaha: string;
-  provinsi: string;
-  kota: string;
-  alamatLengkap: string;
-  mapsLink: string;
-}
-
-const initialFormData: FormData = {
-  namaLengkap: "",
-  whatsapp: "",
-  email: "",
-  namaUsaha: "",
-  provinsi: "",
-  kota: "",
-  alamatLengkap: "",
-  mapsLink: "",
-};
+import type { PartnerRegistrationForm } from "@/types/daftar";
 
 export default function DaftarPage() {
   const [selectedPlan, setSelectedPlan] = useState("1");
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<PartnerRegistrationForm>(
+    INITIAL_PARTNER_REGISTRATION,
+  );
 
   const plan =
     PRICING_PLANS.find((p) => p.id === selectedPlan) || PRICING_PLANS[0];
 
   const handleChange =
-    (field: keyof FormData) =>
+    (field: keyof PartnerRegistrationForm) =>
     (
       e: ChangeEvent<
         HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement

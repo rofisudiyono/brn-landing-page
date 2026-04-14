@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import type { PartnerMapItem } from "@/components/peta/PartnerMap";
+import type { PartnerMapItem } from "@/types/partner";
 
 const PartnerMap = lazy(() => import("@/components/peta/PartnerMap"));
 
