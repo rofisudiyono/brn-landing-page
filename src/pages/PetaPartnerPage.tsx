@@ -9,7 +9,10 @@ import {
   Mail,
   Tag,
 } from "lucide-react";
-import PartnerMap from "@/components/peta/PartnerMap";
+import { PartnerMapLoader } from "@/components/peta/PartnerMapLoader";
+import { useDebounce } from "@/hooks/useDebounce";
+import { KATEGORI_LIST, KATEGORI_COLOR } from "./petaPartnerConstants";
+import type { Kategori } from "./petaPartnerConstants";
 
 // ─── Tipe Data ─────────────────────────────────────────────────────────────
 type Partner = {
@@ -28,29 +31,6 @@ type Partner = {
   lng: number;
 };
 
-// ─── Kategori Partner ──────────────────────────────────────────────────────
-export const KATEGORI_LIST = [
-  "Bengkel Umum",
-  "Bengkel Spesialis",
-  "Toko Ban",
-  "Aksesoris Mobil",
-  "Oli & Spare Part",
-  "Detailing & Cuci Mobil",
-  "Modifikasi Mobil",
-] as const;
-
-type Kategori = (typeof KATEGORI_LIST)[number];
-
-const KATEGORI_COLOR: Record<Kategori, string> = {
-  "Bengkel Umum":        "bg-blue-100 text-blue-700",
-  "Bengkel Spesialis":   "bg-indigo-100 text-indigo-700",
-  "Toko Ban":            "bg-orange-100 text-orange-700",
-  "Aksesoris Mobil":     "bg-purple-100 text-purple-700",
-  "Oli & Spare Part":    "bg-yellow-100 text-yellow-700",
-  "Detailing & Cuci Mobil": "bg-teal-100 text-teal-700",
-  "Modifikasi Mobil":    "bg-rose-100 text-rose-700",
-};
-
 // ─── Mockup Data ─────────────────────────────────────────────────────────
 const ALL_PARTNERS: Partner[] = [
   // DKI Jakarta
@@ -63,9 +43,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Bengkel Umum",
     province: "DKI Jakarta",
     city: "Jakarta Selatan",
-    address: "Jl. TB Simatupang No. 45, Cilandak, Jakarta Selatan, DKI Jakarta 12430",
+    address:
+      "Jl. TB Simatupang No. 45, Cilandak, Jakarta Selatan, DKI Jakarta 12430",
     mapsLink: "https://maps.google.com/?q=-6.2615,106.8106",
-    avatar: "https://ui-avatars.com/api/?name=MJ&background=1A2332&color=F5C800&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=MJ&background=1A2332&color=F5C800&bold=true&size=80",
     lat: -6.2615,
     lng: 106.8106,
   },
@@ -78,9 +60,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Toko Ban",
     province: "DKI Jakarta",
     city: "Jakarta Barat",
-    address: "Jl. Daan Mogot Km. 15 No. 32, Cengkareng, Jakarta Barat, DKI Jakarta 11730",
+    address:
+      "Jl. Daan Mogot Km. 15 No. 32, Cengkareng, Jakarta Barat, DKI Jakarta 11730",
     mapsLink: "https://maps.google.com/?q=-6.1683,106.7630",
-    avatar: "https://ui-avatars.com/api/?name=TM&background=EA580C&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=TM&background=EA580C&color=fff&bold=true&size=80",
     lat: -6.1683,
     lng: 106.763,
   },
@@ -93,9 +77,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Aksesoris Mobil",
     province: "DKI Jakarta",
     city: "Jakarta Pusat",
-    address: "Jl. Tanah Abang III No. 17, Tanah Abang, Jakarta Pusat, DKI Jakarta 10170",
+    address:
+      "Jl. Tanah Abang III No. 17, Tanah Abang, Jakarta Pusat, DKI Jakarta 10170",
     mapsLink: "https://maps.google.com/?q=-6.1751,106.8650",
-    avatar: "https://ui-avatars.com/api/?name=IK&background=7C3AED&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=IK&background=7C3AED&color=fff&bold=true&size=80",
     lat: -6.1751,
     lng: 106.865,
   },
@@ -108,9 +94,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Detailing & Cuci Mobil",
     province: "DKI Jakarta",
     city: "Jakarta Timur",
-    address: "Jl. Raya Bekasi Km. 18 No. 5, Cakung, Jakarta Timur, DKI Jakarta 13910",
+    address:
+      "Jl. Raya Bekasi Km. 18 No. 5, Cakung, Jakarta Timur, DKI Jakarta 13910",
     mapsLink: "https://maps.google.com/?q=-6.2250,106.9000",
-    avatar: "https://ui-avatars.com/api/?name=AP&background=0F766E&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=AP&background=0F766E&color=fff&bold=true&size=80",
     lat: -6.225,
     lng: 106.9,
   },
@@ -126,7 +114,8 @@ const ALL_PARTNERS: Partner[] = [
     city: "Bandung",
     address: "Jl. Pasteur No. 120, Sukajadi, Kota Bandung, Jawa Barat 40161",
     mapsLink: "https://maps.google.com/?q=-6.9175,107.6191",
-    avatar: "https://ui-avatars.com/api/?name=BS&background=1D4ED8&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=BS&background=1D4ED8&color=fff&bold=true&size=80",
     lat: -6.9175,
     lng: 107.6191,
   },
@@ -139,9 +128,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Oli & Spare Part",
     province: "Jawa Barat",
     city: "Bekasi",
-    address: "Jl. Ahmad Yani No. 77, Bekasi Timur, Kota Bekasi, Jawa Barat 17111",
+    address:
+      "Jl. Ahmad Yani No. 77, Bekasi Timur, Kota Bekasi, Jawa Barat 17111",
     mapsLink: "https://maps.google.com/?q=-6.2383,106.9756",
-    avatar: "https://ui-avatars.com/api/?name=OB&background=CA8A04&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=OB&background=CA8A04&color=fff&bold=true&size=80",
     lat: -6.2383,
     lng: 106.9756,
   },
@@ -154,9 +145,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Bengkel Umum",
     province: "Jawa Barat",
     city: "Bogor",
-    address: "Jl. Pajajaran No. 55A, Bogor Tengah, Kota Bogor, Jawa Barat 16128",
+    address:
+      "Jl. Pajajaran No. 55A, Bogor Tengah, Kota Bogor, Jawa Barat 16128",
     mapsLink: "https://maps.google.com/?q=-6.5971,106.8060",
-    avatar: "https://ui-avatars.com/api/?name=BM&background=166534&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=BM&background=166534&color=fff&bold=true&size=80",
     lat: -6.5971,
     lng: 106.806,
   },
@@ -172,7 +165,8 @@ const ALL_PARTNERS: Partner[] = [
     city: "Surabaya",
     address: "Jl. Raya Darmo No. 100, Wonokromo, Surabaya, Jawa Timur 60241",
     mapsLink: "https://maps.google.com/?q=-7.2575,112.7521",
-    avatar: "https://ui-avatars.com/api/?name=MS&background=9F1239&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=MS&background=9F1239&color=fff&bold=true&size=80",
     lat: -7.2575,
     lng: 112.7521,
   },
@@ -187,7 +181,8 @@ const ALL_PARTNERS: Partner[] = [
     city: "Malang",
     address: "Jl. Kawi No. 24, Klojen, Kota Malang, Jawa Timur 65119",
     mapsLink: "https://maps.google.com/?q=-7.9797,112.6304",
-    avatar: "https://ui-avatars.com/api/?name=TM&background=EA580C&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=TM&background=EA580C&color=fff&bold=true&size=80",
     lat: -7.9797,
     lng: 112.6304,
   },
@@ -202,7 +197,8 @@ const ALL_PARTNERS: Partner[] = [
     city: "Sidoarjo",
     address: "Jl. Ahmad Yani No. 15, Sidoarjo, Jawa Timur 61218",
     mapsLink: "https://maps.google.com/?q=-7.4460,112.7185",
-    avatar: "https://ui-avatars.com/api/?name=SA&background=0F766E&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=SA&background=0F766E&color=fff&bold=true&size=80",
     lat: -7.446,
     lng: 112.7185,
   },
@@ -216,9 +212,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Bengkel Umum",
     province: "Bali",
     city: "Denpasar",
-    address: "Jl. Bypass Ngurah Rai No. 88, Sanur, Denpasar Selatan, Bali 80228",
+    address:
+      "Jl. Bypass Ngurah Rai No. 88, Sanur, Denpasar Selatan, Bali 80228",
     mapsLink: "https://maps.google.com/?q=-8.6705,115.2126",
-    avatar: "https://ui-avatars.com/api/?name=BO&background=1A2332&color=F5C800&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=BO&background=1A2332&color=F5C800&bold=true&size=80",
     lat: -8.6705,
     lng: 115.2126,
   },
@@ -233,7 +231,8 @@ const ALL_PARTNERS: Partner[] = [
     city: "Badung",
     address: "Jl. Raya Kuta No. 200, Kuta, Badung, Bali 80361",
     mapsLink: "https://maps.google.com/?q=-8.5069,115.2625",
-    avatar: "https://ui-avatars.com/api/?name=KA&background=7C3AED&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=KA&background=7C3AED&color=fff&bold=true&size=80",
     lat: -8.5069,
     lng: 115.2625,
   },
@@ -248,7 +247,8 @@ const ALL_PARTNERS: Partner[] = [
     city: "Gianyar",
     address: "Jl. Astina Utara No. 5, Gianyar, Bali 80511",
     mapsLink: "https://maps.google.com/?q=-8.5400,115.3307",
-    avatar: "https://ui-avatars.com/api/?name=GB&background=CA8A04&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=GB&background=CA8A04&color=fff&bold=true&size=80",
     lat: -8.54,
     lng: 115.3307,
   },
@@ -262,9 +262,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Bengkel Spesialis",
     province: "Jawa Tengah",
     city: "Semarang",
-    address: "Jl. Pandanaran No. 78, Pleburan, Semarang Selatan, Jawa Tengah 50241",
+    address:
+      "Jl. Pandanaran No. 78, Pleburan, Semarang Selatan, Jawa Tengah 50241",
     mapsLink: "https://maps.google.com/?q=-6.9932,110.4203",
-    avatar: "https://ui-avatars.com/api/?name=BH&background=1D4ED8&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=BH&background=1D4ED8&color=fff&bold=true&size=80",
     lat: -6.9932,
     lng: 110.4203,
   },
@@ -279,7 +281,8 @@ const ALL_PARTNERS: Partner[] = [
     city: "Surakarta",
     address: "Jl. Slamet Riyadi No. 300, Laweyan, Surakarta, Jawa Tengah 57141",
     mapsLink: "https://maps.google.com/?q=-7.5755,110.8243",
-    avatar: "https://ui-avatars.com/api/?name=SC&background=9F1239&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=SC&background=9F1239&color=fff&bold=true&size=80",
     lat: -7.5755,
     lng: 110.8243,
   },
@@ -293,9 +296,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Bengkel Umum",
     province: "Sumatera Utara",
     city: "Medan",
-    address: "Jl. Asia No. 123, Kota Matsum IV, Medan Area, Kota Medan, Sumut 20214",
+    address:
+      "Jl. Asia No. 123, Kota Matsum IV, Medan Area, Kota Medan, Sumut 20214",
     mapsLink: "https://maps.google.com/?q=3.5952,98.6722",
-    avatar: "https://ui-avatars.com/api/?name=MP&background=1A2332&color=F5C800&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=MP&background=1A2332&color=F5C800&bold=true&size=80",
     lat: 3.5952,
     lng: 98.6722,
   },
@@ -308,9 +313,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Toko Ban",
     province: "Sumatera Utara",
     city: "Deli Serdang",
-    address: "Jl. Thamrin No. 44, Lubuk Pakam, Deli Serdang, Sumatera Utara 20514",
+    address:
+      "Jl. Thamrin No. 44, Lubuk Pakam, Deli Serdang, Sumatera Utara 20514",
     mapsLink: "https://maps.google.com/?q=3.4731,98.8392",
-    avatar: "https://ui-avatars.com/api/?name=TD&background=EA580C&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=TD&background=EA580C&color=fff&bold=true&size=80",
     lat: 3.4731,
     lng: 98.8392,
   },
@@ -324,9 +331,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Detailing & Cuci Mobil",
     province: "Sulawesi Selatan",
     city: "Makassar",
-    address: "Jl. Urip Sumoharjo No. 55, Panakkukang, Makassar, Sulawesi Selatan 90231",
+    address:
+      "Jl. Urip Sumoharjo No. 55, Panakkukang, Makassar, Sulawesi Selatan 90231",
     mapsLink: "https://maps.google.com/?q=-5.1477,119.4327",
-    avatar: "https://ui-avatars.com/api/?name=MA&background=0F766E&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=MA&background=0F766E&color=fff&bold=true&size=80",
     lat: -5.1477,
     lng: 119.4327,
   },
@@ -339,9 +348,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Aksesoris Mobil",
     province: "Sulawesi Selatan",
     city: "Gowa",
-    address: "Jl. Sultan Hasanuddin No. 12, Somba Opu, Gowa, Sulawesi Selatan 92111",
+    address:
+      "Jl. Sultan Hasanuddin No. 12, Somba Opu, Gowa, Sulawesi Selatan 92111",
     mapsLink: "https://maps.google.com/?q=-5.2200,119.4800",
-    avatar: "https://ui-avatars.com/api/?name=GS&background=7C3AED&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=GS&background=7C3AED&color=fff&bold=true&size=80",
     lat: -5.22,
     lng: 119.48,
   },
@@ -355,9 +366,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Bengkel Spesialis",
     province: "Kalimantan Timur",
     city: "Balikpapan",
-    address: "Jl. Jenderal Sudirman No. 88, Balikpapan Kota, Kalimantan Timur 76112",
+    address:
+      "Jl. Jenderal Sudirman No. 88, Balikpapan Kota, Kalimantan Timur 76112",
     mapsLink: "https://maps.google.com/?q=-1.2675,116.8289",
-    avatar: "https://ui-avatars.com/api/?name=BB&background=1D4ED8&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=BB&background=1D4ED8&color=fff&bold=true&size=80",
     lat: -1.2675,
     lng: 116.8289,
   },
@@ -370,9 +383,11 @@ const ALL_PARTNERS: Partner[] = [
     kategori: "Oli & Spare Part",
     province: "Kalimantan Timur",
     city: "Samarinda",
-    address: "Jl. Untung Suropati No. 35, Samarinda Ilir, Samarinda, Kalimantan Timur 75117",
+    address:
+      "Jl. Untung Suropati No. 35, Samarinda Ilir, Samarinda, Kalimantan Timur 75117",
     mapsLink: "https://maps.google.com/?q=-0.5022,117.1536",
-    avatar: "https://ui-avatars.com/api/?name=SO&background=CA8A04&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=SO&background=CA8A04&color=fff&bold=true&size=80",
     lat: -0.5022,
     lng: 117.1536,
   },
@@ -388,7 +403,8 @@ const ALL_PARTNERS: Partner[] = [
     city: "Pekanbaru",
     address: "Jl. Sudirman No. 170, Tampan, Pekanbaru, Riau 28291",
     mapsLink: "https://maps.google.com/?q=0.5070,101.4478",
-    avatar: "https://ui-avatars.com/api/?name=PC&background=0F766E&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=PC&background=0F766E&color=fff&bold=true&size=80",
     lat: 0.507,
     lng: 101.4478,
   },
@@ -404,7 +420,8 @@ const ALL_PARTNERS: Partner[] = [
     city: "Yogyakarta",
     address: "Jl. Mangkubumi No. 33, Gedongtengen, Kota Yogyakarta, DIY 55271",
     mapsLink: "https://maps.google.com/?q=-7.7956,110.3695",
-    avatar: "https://ui-avatars.com/api/?name=JM&background=9F1239&color=fff&bold=true&size=80",
+    avatar:
+      "https://ui-avatars.com/api/?name=JM&background=9F1239&color=fff&bold=true&size=80",
     lat: -7.7956,
     lng: 110.3695,
   },
@@ -422,6 +439,7 @@ const SORT_OPTIONS: { key: SortKey; label: string }[] = [
 
 export default function PetaPartnerPage() {
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 300);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedKategori, setSelectedKategori] = useState("");
@@ -447,15 +465,10 @@ export default function PetaPartnerPage() {
     return [
       ...new Set(
         ALL_PARTNERS.filter((p) => p.province === selectedProvince).map(
-          (p) => p.city
-        )
+          (p) => p.city,
+        ),
       ),
     ].sort();
-  }, [selectedProvince]);
-
-  // Reset city when province changes
-  useEffect(() => {
-    setSelectedCity("");
   }, [selectedProvince]);
 
   // Filter + sort
@@ -464,12 +477,11 @@ export default function PetaPartnerPage() {
 
     if (selectedProvince)
       result = result.filter((p) => p.province === selectedProvince);
-    if (selectedCity)
-      result = result.filter((p) => p.city === selectedCity);
+    if (selectedCity) result = result.filter((p) => p.city === selectedCity);
     if (selectedKategori)
       result = result.filter((p) => p.kategori === selectedKategori);
-    if (search.trim()) {
-      const q = search.trim().toLowerCase();
+    if (debouncedSearch.trim()) {
+      const q = debouncedSearch.trim().toLowerCase();
       result = result.filter(
         (p) =>
           p.name.toLowerCase().includes(q) ||
@@ -477,7 +489,7 @@ export default function PetaPartnerPage() {
           p.city.toLowerCase().includes(q) ||
           p.province.toLowerCase().includes(q) ||
           p.address.toLowerCase().includes(q) ||
-          p.kategori.toLowerCase().includes(q)
+          p.kategori.toLowerCase().includes(q),
       );
     }
 
@@ -489,7 +501,13 @@ export default function PetaPartnerPage() {
       default:
         return result;
     }
-  }, [search, selectedProvince, selectedCity, selectedKategori, sortBy]);
+  }, [
+    debouncedSearch,
+    selectedProvince,
+    selectedCity,
+    selectedKategori,
+    sortBy,
+  ]);
 
   const mapPartners = useMemo(() => {
     const base = filteredPartners.map((p) => ({
@@ -520,7 +538,10 @@ export default function PetaPartnerPage() {
   }, [selected]);
 
   const hasActiveFilters =
-    selectedProvince || selectedCity || selectedKategori || search.trim();
+    selectedProvince ||
+    selectedCity ||
+    selectedKategori ||
+    debouncedSearch.trim();
 
   function clearFilters() {
     setSearch("");
@@ -534,7 +555,6 @@ export default function PetaPartnerPage() {
     <div className="flex flex-col md:flex-row h-[calc(100vh-80px)] bg-white overflow-hidden">
       {/* ── SIDEBAR KIRI ──────────────────────────────────────────── */}
       <div className="w-full md:w-[400px] flex-shrink-0 border-r border-gray-200 bg-white flex flex-col h-full shadow-[2px_0_15px_-3px_rgba(0,0,0,0.05)] z-10">
-
         {/* Header & Filter */}
         <div className="p-5 md:p-6 pb-4 border-b border-gray-100 shrink-0 space-y-3">
           <h2 className="font-bold text-gray-900 text-[20px]">
@@ -554,7 +574,7 @@ export default function PetaPartnerPage() {
               onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-10 pr-9 py-3 text-[13px] border border-gray-200 rounded-xl outline-none focus:ring-1 focus:ring-yellow-400 focus:border-yellow-400 placeholder:text-gray-400 transition-shadow shadow-sm"
             />
-            {search && (
+            {search ? (
               <button
                 type="button"
                 onClick={() => setSearch("")}
@@ -562,7 +582,7 @@ export default function PetaPartnerPage() {
               >
                 <X size={14} />
               </button>
-            )}
+            ) : null}
           </div>
 
           {/* Provinsi + Kota */}
@@ -570,16 +590,25 @@ export default function PetaPartnerPage() {
             <div className="relative flex-1">
               <select
                 value={selectedProvince}
-                onChange={(e) => setSelectedProvince(e.target.value)}
+                onChange={(e) => {
+                  setSelectedProvince(e.target.value);
+                  setSelectedCity("");
+                }}
                 className="w-full appearance-none px-4 py-3 text-[13px] border border-gray-200 rounded-xl outline-none focus:ring-1 focus:ring-yellow-400 focus:border-yellow-400 text-gray-600 font-medium bg-white shadow-sm cursor-pointer"
               >
                 <option value="">Semua Provinsi</option>
                 {PROVINCES.map((prov) => (
-                  <option key={prov} value={prov}>{prov}</option>
+                  <option key={prov} value={prov}>
+                    {prov}
+                  </option>
                 ))}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
-                <svg className="fill-current h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <svg
+                  className="fill-current h-3.5 w-3.5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
@@ -595,11 +624,17 @@ export default function PetaPartnerPage() {
                   {selectedProvince ? "Semua Kota" : "Pilih Kota"}
                 </option>
                 {availableCities.map((c) => (
-                  <option key={c} value={c}>{c}</option>
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
                 ))}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
-                <svg className="fill-current h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <svg
+                  className="fill-current h-3.5 w-3.5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
@@ -615,18 +650,24 @@ export default function PetaPartnerPage() {
             >
               <option value="">Semua Kategori</option>
               {KATEGORI_LIST.map((k) => (
-                <option key={k} value={k}>{k}</option>
+                <option key={k} value={k}>
+                  {k}
+                </option>
               ))}
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
-              <svg className="fill-current h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <svg
+                className="fill-current h-3.5 w-3.5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
               </svg>
             </div>
           </div>
 
           {/* Reset filter chip */}
-          {hasActiveFilters && (
+          {hasActiveFilters ? (
             <button
               onClick={clearFilters}
               className="flex items-center gap-1.5 text-[12px] font-semibold text-yellow-700 bg-yellow-50 border border-yellow-200 px-3 py-1.5 rounded-lg hover:bg-yellow-100 transition-colors"
@@ -634,15 +675,15 @@ export default function PetaPartnerPage() {
               <X size={11} />
               Reset semua filter
             </button>
-          )}
+          ) : null}
         </div>
 
         {/* Counter + Sort */}
         <div className="px-5 md:px-6 py-3 flex items-center justify-between shrink-0">
           <span className="text-[12px] font-bold text-gray-400">
             Menampilkan{" "}
-            <span className="text-gray-700">{filteredPartners.length}</span>
-            {" "}dari {ALL_PARTNERS.length} Partner
+            <span className="text-gray-700">{filteredPartners.length}</span>{" "}
+            dari {ALL_PARTNERS.length} Partner
           </span>
 
           <div className="relative" ref={sortRef}>
@@ -660,12 +701,15 @@ export default function PetaPartnerPage() {
               </span>
             </button>
 
-            {showSort && (
+            {showSort ? (
               <div className="absolute right-0 top-full mt-1.5 w-52 bg-white border border-gray-100 rounded-xl shadow-lg z-20 overflow-hidden">
                 {SORT_OPTIONS.map((opt) => (
                   <button
                     key={opt.key}
-                    onClick={() => { setSortBy(opt.key); setShowSort(false); }}
+                    onClick={() => {
+                      setSortBy(opt.key);
+                      setShowSort(false);
+                    }}
                     className={`w-full text-left px-4 py-2.5 text-[13px] transition-colors ${
                       sortBy === opt.key
                         ? "bg-yellow-50 text-yellow-800 font-bold"
@@ -676,7 +720,7 @@ export default function PetaPartnerPage() {
                   </button>
                 ))}
               </div>
-            )}
+            ) : null}
           </div>
         </div>
 
@@ -799,7 +843,7 @@ export default function PetaPartnerPage() {
 
       {/* ── MAP KANAN ─────────────────────────────────────────────── */}
       <div className="relative z-0 flex min-h-[400px] flex-1 bg-[#F5F5F5] md:min-h-0">
-        <PartnerMap
+        <PartnerMapLoader
           partners={mapPartners}
           selectedId={selected}
           selectedPosition={selectedPosition}

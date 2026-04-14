@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import { createPortal } from "react-dom";
 import L from "leaflet";
 import {
@@ -93,11 +93,11 @@ function MapToolbar() {
         <Crosshair size={16} />
       </button>
     </div>,
-    map.getContainer()
+    map.getContainer(),
   );
 }
 
-export default function PartnerMap({
+function PartnerMap({
   partners,
   selectedId,
   selectedPosition,
@@ -129,7 +129,7 @@ export default function PartnerMap({
               click: () => onMarkerClick(partner.id),
             }}
           >
-            {isSelected && (
+            {isSelected ? (
               <Tooltip
                 permanent
                 direction="top"
@@ -146,10 +146,12 @@ export default function PartnerMap({
                   </span>
                 </div>
               </Tooltip>
-            )}
+            ) : null}
           </Marker>
         );
       })}
     </MapContainer>
   );
 }
+
+export default memo(PartnerMap);

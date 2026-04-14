@@ -24,7 +24,7 @@ export function FeaturesSection() {
           labelClassName="bg-[#F5C800]/15 text-[#1A2332]"
           title="Mengapa bergabung dengan BRN?"
           titleClassName="text-3xl md:text-4xl font-black text-[#1A2332] mb-3"
-          titleStyle={{ fontFamily: "Syne, sans-serif" }}
+          titleStyle={{ fontFamily: "var(--font-display)" }}
           description="Struktur komunitas yang kuat, berdah dan mudah diakses, sehingga value utama komunitas langsung terlihat jelas."
           descriptionClassName="text-sm max-w-md mx-auto"
           className="mb-12"

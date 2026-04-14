@@ -6,28 +6,35 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { AppStoreButtons } from "@/components/ui/AppStoreButtons";
+import type { LucideIcon } from "lucide-react";
 
-const APP_FEATURES = [
+interface AppFeature {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+const APP_FEATURES: AppFeature[] = [
   {
-    icon: <AlertTriangle size={20} className="text-[#F5C800]" />,
+    icon: AlertTriangle,
     title: "Laporkan penipuan lebih cepat",
     description:
       "Alur pelaporan dibuat lebih jelas agar anggota dapat mengirim dokumentasi dan kronologi dengan lebih rapi.",
   },
   {
-    icon: <FileText size={20} className="text-[#F5C800]" />,
+    icon: FileText,
     title: "Cek blacklist instan",
     description:
       "Pencarian informasi penting disusun agar keputusan sebelum transaksi bisa dilakukan dengan lebih cepat.",
   },
   {
-    icon: <MessageSquare size={20} className="text-[#F5C800]" />,
+    icon: MessageSquare,
     title: "Terhubung dengan komunitas",
     description:
       "Memperkuat perlindungan usaha melalui jaringan anggota yang aktif berbagi informasi dan pengalaman lapangan.",
   },
   {
-    icon: <Crosshair size={20} className="text-[#F5C800]" />,
+    icon: Crosshair,
     title: "Pantau armada lebih aman",
     description:
       "Suatu referensi penting untuk menjaga kendaraan dan memastikan risiko operasional bisnis rental harian.",
@@ -61,22 +68,25 @@ export function AppSection() {
 
             {/* Features Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 mt-auto">
-              {APP_FEATURES.map((feature) => (
-                <div
-                  key={feature.title}
-                  className="bg-white rounded-[20px] p-5 shadow-sm flex flex-col"
-                >
-                  <div className="w-10 h-10 bg-[#111827] rounded-xl flex items-center justify-center mb-4 shrink-0">
-                    {feature.icon}
+              {APP_FEATURES.map((feature) => {
+                const IconComponent = feature.icon;
+                return (
+                  <div
+                    key={feature.title}
+                    className="bg-white rounded-[20px] p-5 shadow-sm flex flex-col"
+                  >
+                    <div className="w-10 h-10 bg-[#111827] rounded-xl flex items-center justify-center mb-4 shrink-0">
+                      <IconComponent size={20} className="text-[#F5C800]" />
+                    </div>
+                    <h3 className="text-[14px] font-bold text-gray-900 mb-2 leading-tight">
+                      {feature.title}
+                    </h3>
+                    <p className="text-[12px] text-gray-500 leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
-                  <h3 className="text-[14px] font-bold text-gray-900 mb-2 leading-tight">
-                    {feature.title}
-                  </h3>
-                  <p className="text-[12px] text-gray-500 leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 

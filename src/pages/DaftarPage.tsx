@@ -1,15 +1,47 @@
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import { User, Store } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { PRICING_PLANS, INDONESIAN_PROVINCES } from "@/data";
 import { cn } from "@/lib/utils";
 
+interface FormData {
+  namaLengkap: string;
+  whatsapp: string;
+  email: string;
+  namaUsaha: string;
+  provinsi: string;
+  kota: string;
+  alamatLengkap: string;
+  mapsLink: string;
+}
+
+const initialFormData: FormData = {
+  namaLengkap: "",
+  whatsapp: "",
+  email: "",
+  namaUsaha: "",
+  provinsi: "",
+  kota: "",
+  alamatLengkap: "",
+  mapsLink: "",
+};
+
 export default function DaftarPage() {
   const [selectedPlan, setSelectedPlan] = useState("1");
-  const [province, setProvince] = useState("");
+  const [formData, setFormData] = useState<FormData>(initialFormData);
 
   const plan =
     PRICING_PLANS.find((p) => p.id === selectedPlan) || PRICING_PLANS[0];
+
+  const handleChange =
+    (field: keyof FormData) =>
+    (
+      e: ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >,
+    ) => {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+    };
 
   return (
     <div className="bg-[#F8FAFC] min-h-screen py-12 md:py-20 px-4 sm:px-6">
@@ -44,6 +76,8 @@ export default function DaftarPage() {
                 <input
                   type="text"
                   placeholder="Masukkan nama lengkap"
+                  value={formData.namaLengkap}
+                  onChange={handleChange("namaLengkap")}
                   className="w-full px-4 py-3.5 text-[14px] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#F5C800]/50 focus:border-[#F5C800] placeholder:text-gray-400 transition-all"
                 />
               </div>
@@ -57,6 +91,8 @@ export default function DaftarPage() {
                   <input
                     type="tel"
                     placeholder="Contoh: 081234567890"
+                    value={formData.whatsapp}
+                    onChange={handleChange("whatsapp")}
                     className="w-full px-4 py-3.5 text-[14px] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#F5C800]/50 focus:border-[#F5C800] placeholder:text-gray-400 transition-all"
                   />
                 </div>
@@ -67,6 +103,8 @@ export default function DaftarPage() {
                   <input
                     type="email"
                     placeholder="Contoh: email@domain.com"
+                    value={formData.email}
+                    onChange={handleChange("email")}
                     className="w-full px-4 py-3.5 text-[14px] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#F5C800]/50 focus:border-[#F5C800] placeholder:text-gray-400 transition-all"
                   />
                 </div>
@@ -94,6 +132,8 @@ export default function DaftarPage() {
                 <input
                   type="text"
                   placeholder="Masukkan nama usaha"
+                  value={formData.namaUsaha}
+                  onChange={handleChange("namaUsaha")}
                   className="w-full px-4 py-3.5 text-[14px] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#F5C800]/50 focus:border-[#F5C800] placeholder:text-gray-400 transition-all"
                 />
               </div>
@@ -106,8 +146,8 @@ export default function DaftarPage() {
                   </label>
                   <div className="relative">
                     <select
-                      value={province}
-                      onChange={(e) => setProvince(e.target.value)}
+                      value={formData.provinsi}
+                      onChange={handleChange("provinsi")}
                       className="w-full appearance-none px-4 py-3.5 text-[14px] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#F5C800]/50 focus:border-[#F5C800] text-gray-600 bg-white transition-all cursor-pointer"
                     >
                       <option value="">Pilih Provinsi</option>
@@ -133,7 +173,11 @@ export default function DaftarPage() {
                     Kota / Kabupaten <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <select className="w-full appearance-none px-4 py-3.5 text-[14px] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#F5C800]/50 focus:border-[#F5C800] text-gray-400 bg-white transition-all cursor-pointer">
+                    <select
+                      value={formData.kota}
+                      onChange={handleChange("kota")}
+                      className="w-full appearance-none px-4 py-3.5 text-[14px] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#F5C800]/50 focus:border-[#F5C800] text-gray-400 bg-white transition-all cursor-pointer"
+                    >
                       <option value="">Pilih Kota/Kabupaten</option>
                     </select>
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
@@ -157,6 +201,8 @@ export default function DaftarPage() {
                 <textarea
                   placeholder="Masukkan alamat lengkap usaha Anda"
                   rows={3}
+                  value={formData.alamatLengkap}
+                  onChange={handleChange("alamatLengkap")}
                   className="w-full px-4 py-3.5 text-[14px] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#F5C800]/50 focus:border-[#F5C800] placeholder:text-gray-400 transition-all resize-none"
                 />
               </div>
@@ -169,6 +215,8 @@ export default function DaftarPage() {
                 <input
                   type="url"
                   placeholder="Tempelkan link lokasi Google Maps usaha Anda"
+                  value={formData.mapsLink}
+                  onChange={handleChange("mapsLink")}
                   className="w-full px-4 py-3.5 text-[14px] border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-[#F5C800]/50 focus:border-[#F5C800] placeholder:text-gray-400 transition-all"
                 />
               </div>

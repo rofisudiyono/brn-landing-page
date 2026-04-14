@@ -10,7 +10,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <p
               className="text-xl font-black mb-3"
-              style={{ fontFamily: "Syne, sans-serif" }}
+              style={{ fontFamily: "var(--font-display)" }}
             >
               BRN
             </p>

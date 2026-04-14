@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 export interface EventCardItem {
   id: number;
   date: string;
@@ -10,7 +12,7 @@ interface EventCardProps {
   event: EventCardItem;
 }
 
-export function EventCard({ event }: EventCardProps) {
+export const EventCard = memo(({ event }: EventCardProps) => {
   return (
     <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:border-gray-200 hover:shadow-md transition-all duration-300 group flex flex-col">
       <div className="overflow-hidden aspect-[16/10] shrink-0">
@@ -33,4 +35,6 @@ export function EventCard({ event }: EventCardProps) {
       </div>
     </div>
   );
-}
+});
+
+EventCard.displayName = "EventCard";

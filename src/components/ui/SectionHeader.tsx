@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { cn } from "@/lib/utils";
 import type { CSSProperties, ReactNode } from "react";
 
@@ -14,49 +15,56 @@ interface SectionHeaderProps {
   children?: ReactNode;
 }
 
-export function SectionHeader({
-  label,
-  labelClassName,
-  title,
-  titleClassName,
-  titleStyle,
-  description,
-  descriptionClassName,
-  align = "center",
-  className,
-  children,
-}: SectionHeaderProps) {
-  return (
-    <div
-      className={cn(
-        align === "center" && "flex flex-col items-center text-center",
-        className,
-      )}
-    >
-      {label && (
-        <span
-          className={cn(
-            "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold mb-4",
-            labelClassName,
-          )}
-        >
-          {label}
-        </span>
-      )}
-      <h2
-        className={cn("font-bold tracking-tight", titleClassName)}
-        style={titleStyle}
+export const SectionHeader = memo(
+  ({
+    label,
+    labelClassName,
+    title,
+    titleClassName,
+    titleStyle,
+    description,
+    descriptionClassName,
+    align = "center",
+    className,
+    children,
+  }: SectionHeaderProps) => {
+    return (
+      <div
+        className={cn(
+          align === "center" && "flex flex-col items-center text-center",
+          className,
+        )}
       >
-        {title}
-      </h2>
-      {description && (
-        <p
-          className={cn("text-gray-500 leading-relaxed", descriptionClassName)}
+        {label && (
+          <span
+            className={cn(
+              "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold mb-4",
+              labelClassName,
+            )}
+          >
+            {label}
+          </span>
+        )}
+        <h2
+          className={cn("font-bold tracking-tight", titleClassName)}
+          style={titleStyle}
         >
-          {description}
-        </p>
-      )}
-      {children}
-    </div>
-  );
-}
+          {title}
+        </h2>
+        {description && (
+          <p
+            className={cn(
+              "text-gray-500 leading-relaxed",
+              descriptionClassName,
+            )}
+          >
+            {description}
+          </p>
+        )}
+        {children}
+      </div>
+    );
+  },
+);
+
+SectionHeader.displayName = "SectionHeader";
