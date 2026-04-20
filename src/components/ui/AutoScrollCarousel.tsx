@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface AutoScrollCarouselProps {
@@ -17,8 +17,11 @@ export function AutoScrollCarousel({
   className,
 }: AutoScrollCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
+    if (isPaused) return;
+
     const timer = setInterval(() => {
       if (scrollRef.current) {
         const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
@@ -34,11 +37,15 @@ export function AutoScrollCarousel({
       }
     }, interval);
     return () => clearInterval(timer);
-  }, [interval, scrollAmount]);
+  }, [interval, scrollAmount, isPaused]);
 
   return (
     <div
       ref={scrollRef}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={() => setIsPaused(false)}
       className={cn(
         "flex overflow-x-auto snap-x snap-mandatory scroll-smooth",
         "[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]",

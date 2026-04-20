@@ -18,11 +18,11 @@ export function Navbar() {
         <div className="flex items-center justify-between h-[72px]">
           {/* Logo Section */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="flex flex-col leading-none">
-              <span
-                className="text-2xl font-bold tracking-tight text-gray-900"
-                style={{ fontFamily: "Inter, sans-serif" }}
-              >
+            <div
+              className="flex flex-col leading-none"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              <span className="text-2xl font-bold tracking-tight text-gray-900">
                 BRN<span className="text-gray-400 font-light">+</span>
               </span>
             </div>
@@ -65,7 +65,7 @@ export function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
+        {isOpen ? (
           <div className="md:hidden border-t border-gray-100 py-4 flex flex-col gap-3 bg-white px-4 shadow-xl">
             {NAV_LINKS.map((link) => (
               <Link
@@ -92,7 +92,7 @@ export function Navbar() {
               </Button>
             </Link>
           </div>
-        )}
+        ) : null}
       </Container>
     </header>
   );

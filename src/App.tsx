@@ -1,12 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Layout } from '@/components/layout/Layout'
-import HomePage from '@/pages/HomePage'
-import TentangPage from '@/pages/TentangPage'
-import EventPage from '@/pages/EventPage'
-import PetaPartnerPage from '@/pages/PetaPartnerPage'
-import TermsPage from '@/pages/TermsPage'
-import DaftarPage from '@/pages/DaftarPage'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Suspense, lazy } from "react";
+import { Layout } from "@/components/layout/Layout";
+
+const HomePage = lazy(() => import("@/pages/HomePage"));
+const TentangPage = lazy(() => import("@/pages/TentangPage"));
+const EventPage = lazy(() => import("@/pages/EventPage"));
+const PetaPartnerPage = lazy(() => import("@/pages/PetaPartnerPage"));
+const TermsPage = lazy(() => import("@/pages/TermsPage"));
+const DaftarPage = lazy(() => import("@/pages/DaftarPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,7 +17,18 @@ const queryClient = new QueryClient({
       retry: 1,
     },
   },
-})
+});
+
+function LoadingFallback() {
+  return (
+    <div className="flex min-h-[60vh] items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-[#F5C800]" />
+        <p className="text-sm font-medium text-gray-500">Memuat halaman...</p>
+      </div>
+    </div>
+  );
+}
 
 export default function App() {
   return (
@@ -23,15 +36,57 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/tentang" element={<TentangPage />} />
-            <Route path="/event" element={<EventPage />} />
-            <Route path="/peta-partner" element={<PetaPartnerPage />} />
-            <Route path="/terms" element={<TermsPage />} />
-            <Route path="/daftar" element={<DaftarPage />} />
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <HomePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/tentang"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <TentangPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/event"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <EventPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/peta-partner"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <PetaPartnerPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/terms"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <TermsPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/daftar"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <DaftarPage />
+                </Suspense>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
-  )
+  );
 }
