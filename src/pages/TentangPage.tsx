@@ -245,9 +245,6 @@ export default function TentangPage() {
                 <p className="text-[#F5C800] text-[11px] font-bold tracking-wider mb-3">
                   {member.role}
                 </p>
-                <p className="text-gray-500 text-[13px] leading-relaxed">
-                  {member.desc}
-                </p>
               </div>
             ))}
           </div>
