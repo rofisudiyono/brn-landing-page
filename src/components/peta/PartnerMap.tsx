@@ -1,4 +1,4 @@
-import { useEffect, memo } from "react";
+import { useEffect, memo, useMemo } from "react";
 import { createPortal } from "react-dom";
 import L from "leaflet";
 import {
@@ -38,6 +38,9 @@ function createPinIcon(isSelected: boolean) {
     iconAnchor: [size / 2, size / 2],
   });
 }
+
+const PIN_ICON_DEFAULT = createPinIcon(false);
+const PIN_ICON_SELECTED = createPinIcon(true);
 
 function MapViewSync({
   selectedPosition,
@@ -92,6 +95,50 @@ function MapToolbar() {
   );
 }
 
+const PartnerMarker = memo(function PartnerMarker({
+  partner,
+  isSelected,
+  onMarkerClick,
+}: {
+  partner: PartnerMapItem;
+  isSelected: boolean;
+  onMarkerClick: (id: number) => void;
+}) {
+  const eventHandlers = useMemo(
+    () => ({
+      click: () => onMarkerClick(partner.id),
+    }),
+    [onMarkerClick, partner.id],
+  );
+
+  return (
+    <Marker
+      position={[partner.lat, partner.lng]}
+      icon={isSelected ? PIN_ICON_SELECTED : PIN_ICON_DEFAULT}
+      eventHandlers={eventHandlers}
+    >
+      {isSelected ? (
+        <Tooltip
+          permanent
+          direction="top"
+          offset={[0, -24]}
+          opacity={1}
+          className="!rounded-xl !border !border-gray-100 !bg-white !p-0 !shadow-lg [&_.leaflet-tooltip-tip]:!bg-white"
+        >
+          <div className="rounded-xl px-4 py-2.5 text-center">
+            <span className="block text-[12px] font-bold leading-tight text-gray-900">
+              {partner.name}
+            </span>
+            <span className="text-[10px] font-medium text-gray-400">
+              {partner.kategori}
+            </span>
+          </div>
+        </Tooltip>
+      ) : null}
+    </Marker>
+  );
+});
+
 function PartnerMap({
   partners,
   selectedId,
@@ -113,38 +160,14 @@ function PartnerMap({
       <MapViewSync selectedPosition={selectedPosition} />
       <MapToolbar />
       <ScaleControl position="bottomleft" imperial={false} />
-      {partners.map((partner) => {
-        const isSelected = selectedId === partner.id;
-        return (
-          <Marker
-            key={partner.id}
-            position={[partner.lat, partner.lng]}
-            icon={createPinIcon(isSelected)}
-            eventHandlers={{
-              click: () => onMarkerClick(partner.id),
-            }}
-          >
-            {isSelected ? (
-              <Tooltip
-                permanent
-                direction="top"
-                offset={[0, -24]}
-                opacity={1}
-                className="!rounded-xl !border !border-gray-100 !bg-white !p-0 !shadow-lg [&_.leaflet-tooltip-tip]:!bg-white"
-              >
-                <div className="rounded-xl px-4 py-2.5 text-center">
-                  <span className="block text-[12px] font-bold leading-tight text-gray-900">
-                    {partner.name}
-                  </span>
-                  <span className="text-[10px] font-medium text-gray-400">
-                    {partner.kategori}
-                  </span>
-                </div>
-              </Tooltip>
-            ) : null}
-          </Marker>
-        );
-      })}
+      {partners.map((partner) => (
+        <PartnerMarker
+          key={partner.id}
+          partner={partner}
+          isSelected={selectedId === partner.id}
+          onMarkerClick={onMarkerClick}
+        />
+      ))}
     </MapContainer>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Search,
   X,
@@ -66,6 +66,18 @@ export function PartnerMapSidebar({
   const [showSort, setShowSort] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);
 
+  const onProvinceSelect = useCallback(
+    (v: string) => {
+      onProvinceChange(v);
+      onCityChange("");
+    },
+    [onProvinceChange, onCityChange],
+  );
+
+  const onClearSearch = useCallback(() => {
+    onSearchChange("");
+  }, [onSearchChange]);
+
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
       if (sortRef.current && !sortRef.current.contains(e.target as Node)) {
@@ -96,7 +108,7 @@ export function PartnerMapSidebar({
           {search ? (
             <button
               type="button"
-              onClick={() => onSearchChange("")}
+              onClick={onClearSearch}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
             >
               <X size={14} />
@@ -108,10 +120,7 @@ export function PartnerMapSidebar({
           <div className="relative flex-1">
             <select
               value={selectedProvince}
-              onChange={(e) => {
-                onProvinceChange(e.target.value);
-                onCityChange("");
-              }}
+              onChange={(e) => onProvinceSelect(e.target.value)}
               className="w-full appearance-none px-4 py-3 text-[13px] border border-gray-200 rounded-xl outline-none focus:ring-1 focus:ring-yellow-400 focus:border-yellow-400 text-gray-600 font-medium bg-white shadow-sm cursor-pointer"
             >
               <option value="">Semua Provinsi</option>
@@ -251,21 +260,11 @@ export function PartnerMapSidebar({
               key={partner.id}
               partner={partner}
               isSelected={selectedId === partner.id}
-              onSelect={() => onSelectPartner(partner.id)}
+              onSelectPartner={onSelectPartner}
             />
           ))
         )}
       </div>
-
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #E5E7EB; border-radius: 20px; }
-      `,
-        }}
-      />
     </div>
   );
 }

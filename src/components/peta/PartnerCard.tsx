@@ -1,3 +1,4 @@
+import { memo, useCallback } from "react";
 import { MapPin, Mail, Phone, Map, Tag } from "lucide-react";
 import { KATEGORI_COLOR } from "@/constant/partnerKategori";
 import type { Kategori, Partner } from "@/types/partner";
@@ -6,13 +7,21 @@ import { toWhatsAppHref } from "@/utils/partnerMap";
 type PartnerCardProps = {
   partner: Partner;
   isSelected: boolean;
-  onSelect: () => void;
+  onSelectPartner: (id: number) => void;
 };
 
-export function PartnerCard({ partner, isSelected, onSelect }: PartnerCardProps) {
+function PartnerCardImpl({
+  partner,
+  isSelected,
+  onSelectPartner,
+}: PartnerCardProps) {
   const badgeClass =
     KATEGORI_COLOR[partner.kategori as Kategori] ??
     "bg-gray-100 text-gray-600";
+
+  const onSelect = useCallback(() => {
+    onSelectPartner(partner.id);
+  }, [onSelectPartner, partner.id]);
 
   return (
     <div
@@ -101,3 +110,5 @@ export function PartnerCard({ partner, isSelected, onSelect }: PartnerCardProps)
     </div>
   );
 }
+
+export const PartnerCard = memo(PartnerCardImpl);
